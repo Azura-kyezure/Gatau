@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Web Interaktif</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        background: linear-gradient(270deg, #1e3c72, #2a5298, #6dd5ed);
+        background-size: 600% 600%;
+        animation: bgMove 10s infinite alternate;
+        color: white;
+        text-align: center;
+    }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
+    h1 {
+        margin-top: 80px;
+        font-size: 40px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background: white;
+        color: #2a5298;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #2a5298;
+        color: white;
+    }
+
+    /* popup */
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        background: white;
+        color: black;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transition: 0.3s;
+        z-index: 10;
+    }
+
+    .popup.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* bola animasi */
+    .ball {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+        from {
+            transform: translateY(100vh);
+        }
+        to {
+            transform: translateY(-10vh);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Halo 👋</h1>
+<p>Ini contoh website random. karna aku gatau mau buat apa.</p>
+
+<button onclick="showPopup()">pencet aku</button>
+
+<div class="popup" id="popup">
+    <h2>Hai!</h2>
+    
+    <button onclick="closePopup()">Tutup</button>
+</div>
+
+<script>
+    function showPopup() {
+        document.getElementById("popup").classList.add("active");
+    }
+
+    function closePopup() {
+        document.getElementById("popup").classList.remove("active");
+    }
+
+    // bikin bola random
+    function createBall() {
+        const ball = document.createElement("div");
+        ball.classList.add("ball");
+
+        ball.style.left = Math.random() * window.innerWidth + "px";
+        ball.style.animationDuration = (5 + Math.random() * 5) + "s";
+        ball.style.width = ball.style.height = (10 + Math.random() * 30) + "px";
+
+        document.body.appendChild(ball);
+
+        setTimeout(() => {
+            ball.remove();
+        }, 10000);
+    }
+
+    setInterval(createBall, 300);
+</script>
+
+</body>
+</html>
